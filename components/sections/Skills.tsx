@@ -27,9 +27,10 @@ const Skills = () => {
 
   const sections = {
     home: '/',
-    projects: '/projects',
-    contact: '/contact',
-    about: '/about'
+    projects: '#projects',
+    contact: '#contact',
+    Experience: "#experience",
+    about: '#about'
   };
 
   useEffect(() => {

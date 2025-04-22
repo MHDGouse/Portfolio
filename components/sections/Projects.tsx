@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from 'react';
-import { projectData } from '@/data/projectData';
+import { projectData } from '../../Public/assets/data/projectData';
 import { ExternalLink, Github } from 'lucide-react';
 import Image from 'next/image';
 import { Badge } from '@/components/ui/badge';
@@ -25,7 +25,7 @@ const Projects = () => {
             >
               <div className="relative h-60 w-full overflow-hidden">
                 <Image
-                  src={project.imageUrl}
+                  src={project.imageUrl || ''}
                   alt={project.title}
                   fill
                   style={{ objectFit: 'cover' }}
