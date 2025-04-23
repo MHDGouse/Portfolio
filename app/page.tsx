@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from 'react';
+import { motion } from 'framer-motion'; // Import Framer Motion
 import Navbar from '@/components/layout/Navbar';
 import Hero from '@/components/sections/Hero';
 import Skills from '@/components/sections/Skills';
@@ -12,16 +13,15 @@ import Loading from '@/components/layout/Loading';
 import NewProjects from '@/components/sections/NewProjects';
 
 export default function Home() {
-  //loading aniamtion
+  // Loading animation state
   const [loading, setLoading] = useState(true);
 
-  useEffect(()=>{
-    const time = setTimeout(()=>{
-      setLoading(false)
-    },4000);
-  return()=> clearTimeout(time);
-
-  },[]);
+  useEffect(() => {
+    const time = setTimeout(() => {
+      setLoading(false);
+    }, 4000);
+    return () => clearTimeout(time);
+  }, []);
 
   // Smooth scrolling effect
   useEffect(() => {
@@ -34,7 +34,7 @@ export default function Home() {
         if (element) {
           window.scrollTo({
             top: element.offsetTop - 80, // Account for navbar height
-            behavior: 'smooth'
+            behavior: 'smooth',
           });
         }
       }
@@ -44,23 +44,34 @@ export default function Home() {
     return () => document.removeEventListener('click', handleNavigation);
   }, []);
 
+  // Framer Motion animation variants
+  const pageVariants = {
+    hidden: { opacity: 0, y: 50 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.8 } },
+    exit: { opacity: 0, y: -50, transition: { duration: 0.5 } },
+  };
+
   return (
     <main className="min-h-screen bg-white">
-      {loading ?(
-    <Loading />
-      ):(
-        <>
-      <Navbar />
-      <Hero />
-      <Skills />
-      <NewProjects />
-      {/* <Projects /> */}
-      <Experience />
-      <Contact />
-      <Footer />
-    
-    </>
-  )}
+      {loading ? (
+        <Loading />
+      ) : (
+        <motion.div
+          initial="hidden"
+          animate="visible"
+          exit="exit"
+          variants={pageVariants}
+        >
+          <Navbar />
+          <Hero />
+          <Skills />
+          <NewProjects />
+          {/* <Projects /> */}
+          <Experience />
+          <Contact />
+          <Footer />
+        </motion.div>
+      )}
     </main>
   );
 }

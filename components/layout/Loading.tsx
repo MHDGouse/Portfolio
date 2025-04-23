@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 
 const Loading = () => {
   const [text, setText] = useState('');
-  const fullText = "Welcome to gouse.dev portfolio";
+  const fullText = "Welcome to gouse.dev ";
   const typingSpeed = 100;
 
   useEffect(() => {

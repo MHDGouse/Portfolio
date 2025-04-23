@@ -1,10 +1,11 @@
 import React from 'react';
 import { Safari } from '../ui/safari';
 import { projectData } from '../../Public/assets/data/projectData';
+import { Code } from 'lucide-react';
 
 const NewProjects = () => {
   return (
-    <div className="space-y-16">
+    <div className="space-y-16 m-32">
       {projectData.map((project, index) => (
         <div
           key={project.id}
@@ -35,15 +36,18 @@ const NewProjects = () => {
                 </span>
               ))}
             </div>
-            <div className="flex gap-4">
+            <div className="flex gap-4 ">
+              <div className='flex items-center bg-slate-900 px-3 py-1 rounded-md text-white'>
+              <Code className="h-4 w-4 mr-1" />
               <a
                 href={project.repoUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="btn btn-primary"
+                className=""
               >
                 View Code
               </a>
+              </div>
               <a
                 href={project.liveUrl}
                 target="_blank"

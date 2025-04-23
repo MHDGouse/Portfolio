@@ -2,7 +2,9 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { Code, Menu, X } from 'lucide-react';
+import { Terminal, Menu, X } from 'lucide-react';
+import { motion } from 'framer-motion'; // Import Framer Motion
+
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -20,7 +22,6 @@ const Navbar = () => {
   };
 
   const downloadResume = () => {
-    // In a real implementation, this would point to an actual PDF file
     const link = document.createElement('a');
     link.href = "/assets/pdf/Mohammed_Gouse_Resume.pdf";
     link.download = 'Gouse_Developer_Resume.pdf';
@@ -35,19 +36,24 @@ const Navbar = () => {
         isScrolled ? 'bg-white shadow-md py-2' : 'bg-transparent py-4'
       }`}
     >
-      <div className="container mx-auto flex justify-between items-center px-4">
+      <div className="container mx-auto flex justify-between items-center px-4 font-['Courier_Prime']">
         <Link href="/" className="flex items-center space-x-2">
-          <Code className="h-6 w-6" />
-          <span className="text-xl font-bold">gouse.dev</span>
+          <Terminal className="h-6 w-6 text-green-500" />
+          <span className="text-2xl font-bold">gouse.dev</span>
         </Link>
 
         {/* Desktop Navigation */}
         <div className="hidden md:flex items-center space-x-8">
-          <Link href="#home" className="nav-link">Home</Link>
-          <Link href="#skills" className="nav-link">Skills</Link>
-          <Link href="#projects" className="nav-link">Projects</Link>
-          <Link href="#experience" className="nav-link">Experience</Link>
-          <Link href="#contact" className="nav-link">Contact</Link>
+          {['Home', 'Skills', 'Projects', 'Experience', 'Contact'].map((item, index) => (
+            <Link
+              key={index}
+              href={`#${item.toLowerCase()}`}
+              className="nav-link relative group"
+            >
+              {item}
+              <span className="absolute bottom-0 left-1/2 w-0 h-[2px] bg-green-500 transition-all duration-300 group-hover:w-full group-hover:left-0"></span>
+            </Link>
+          ))}
         </div>
 
         <button 
@@ -65,12 +71,18 @@ const Navbar = () => {
 
       {/* Mobile Navigation */}
       <div className={`md:hidden ${isMenuOpen ? 'block' : 'hidden'} bg-white shadow-md`}>
-        <div className="flex flex-col px-4 py-2 space-y-4">
-          <Link href="#home" className="nav-link" onClick={toggleMenu}>Home</Link>
-          <Link href="#skills" className="nav-link" onClick={toggleMenu}>Skills</Link>
-          <Link href="#projects" className="nav-link" onClick={toggleMenu}>Projects</Link>
-          <Link href="#experience" className="nav-link" onClick={toggleMenu}>Experience</Link>
-          <Link href="#contact" className="nav-link" onClick={toggleMenu}>Contact</Link>
+        <div className="flex flex-col px-4 py-2 space-y-4 font-['Courier_Prime']">
+          {['Home', 'Skills', 'Projects', 'Experience', 'Contact'].map((item, index) => (
+            <Link
+              key={index}
+              href={`#${item.toLowerCase()}`}
+              className="nav-link relative group"
+              onClick={toggleMenu}
+            >
+              {item}
+              <span className="absolute bottom-0 left-1/2 w-0 h-[2px] bg-green-500 transition-all duration-300 group-hover:w-full group-hover:left-0"></span>
+            </Link>
+          ))}
           <button 
             onClick={() => {
               downloadResume();
