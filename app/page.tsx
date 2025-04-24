@@ -12,7 +12,10 @@ import Footer from '@/components/layout/Footer';
 import Loading from '@/components/layout/Loading';
 import NewProjects from '@/components/sections/NewProjects';
 
+
+
 export default function Home() {
+  
   // Loading animation state
   const [loading, setLoading] = useState(true);
 

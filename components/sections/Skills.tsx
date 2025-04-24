@@ -273,7 +273,7 @@ const TerminalEmulator = () => {
   const [showCursor, setShowCursor] = useState(true);
   const [history, setHistory] = useState<string[]>([]);
   const [historyIndex, setHistoryIndex] = useState(-1);
-  const [currentPath, setCurrentPath] = useState('home');
+  const [currentPath, setCurrentPath] = useState('/home');
   const [isMaximized, setIsMaximized] = useState(false);
 
   const inputRef = useRef<HTMLInputElement>(null);
