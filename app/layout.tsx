@@ -3,6 +3,7 @@ import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import { Toaster } from '@/components/ui/toaster';
 import { Analytics } from "@vercel/analytics/react"
+import { SpeedInsights } from "@vercel/speed-insights/next"
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -69,7 +70,8 @@ export default function RootLayout({
       </head>
       <body className={inter.className}>
         {children}
-        <Analytics />
+        <Analytics /> // For tracking user interactions and performance
+        <SpeedInsights /> // For performance insights and optimizations
         <Toaster />
       </body>
     </html>
