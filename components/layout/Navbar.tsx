@@ -60,7 +60,7 @@ const Navbar = () => {
             className="hidden md:flex items-center btn btn-primary dark:text-black dark:bg-white relative overflow-hidden group"
           >
             <span className="transition-transform duration-300 group-hover:translate-x-full opacity-100 group-hover:opacity-0">
-              Download Resume
+            View Resume
             </span>
             <Download className="absolute right-0 transition-all duration-300 transform translate-x-full group-hover:translate-x-0 group-hover:right-[50%] group-hover:top-0 group-hover:translate-y-1/2" />
           </Link>

@@ -1,0 +1,9 @@
+# *
+User-agent: *
+Allow: /
+
+# Host
+Host: https://mhdgouse-dev.vercel.app/
+
+# Sitemaps
+Sitemap: https://mhdgouse-dev.vercel.app/sitemap.xml
