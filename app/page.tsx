@@ -4,14 +4,14 @@ import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion'; // Import Framer Motion
 import Navbar from '@/components/layout/Navbar';
 import Hero from '@/components/sections/Hero';
-import Skills from '@/components/sections/Skills';
+import Ternimal from '@/components/sections/TerminalSection';
 import Projects from '@/components/sections/Projects';
 import Experience from '@/components/sections/Experience';
 import Contact from '@/components/sections/Contact';
 import Footer from '@/components/layout/Footer';
 import Loading from '@/components/layout/Loading';
 import NewProjects from '@/components/sections/NewProjects';
-
+import Skills from '@/components/sections/Skills';
 
 
 export default function Home() {
@@ -55,7 +55,7 @@ export default function Home() {
   };
 
   return (
-    <main className="min-h-screen bg-white">
+    <main className="min-h-screen bg-white dark:bg-black transition-colors">
       {loading ? (
         <Loading />
       ) : (
@@ -67,7 +67,9 @@ export default function Home() {
         >
           <Navbar />
           <Hero />
+          <Ternimal />
           <Skills />
+          {/* <div className="h-screen"></div> */}
           <NewProjects />
           {/* <Projects /> */}
           <Experience />

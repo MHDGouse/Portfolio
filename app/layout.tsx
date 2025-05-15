@@ -10,15 +10,15 @@ const inter = Inter({ subsets: ['latin'] });
 export const metadata: Metadata = {
   title: 'Mohammed Gouse | Full Stack Developer',
   description: 'Explore the portfolio of Mohammed Gouse, a full stack developer specializing in MERN stack applications.',
-  keywords: ['Full Stack Developer', 'Next.js', 'React', 'Node.js', 'Portfolio', 'Mohammed Gouse'],
+  keywords: ['Mohammed Gouse','Full Stack Developer','developer', 'Next.js', 'React', 'Node.js', 'Portfolio', ],
   openGraph: {
     title: 'Mohammed Gouse | Full Stack Developer',
     description: 'Showcasing MERN stack projects and web development skills.',
-    url: 'https://mhdgouse-dev.vercel.app',
+    url: 'https://mhdgous.me',
     siteName: 'Gouse Dev Portfolio',
     images: [
       {
-        url: 'https://mhdgouse-dev.vercel.app/og-image.jpg',
+        url: 'https://mhdgouse.me/og-image.jpg',
         width: 1200,
         height: 630,
         alt: 'Portfolio of Mohammed Gouse',
@@ -54,7 +54,7 @@ export default function RootLayout({
               "@context": "https://schema.org",
               "@type": "Person",
               "name": "Mohammed Gouse",
-              "url": "https://mhdgouse-dev.vercel.app",
+              "url": "https://mhdgouse.me",
               "sameAs": [
                 "https://github.com/MHDGouse",
                 "https://www.linkedin.com/in/mhdgouse"
@@ -70,8 +70,8 @@ export default function RootLayout({
       </head>
       <body className={inter.className}>
         {children}
-        <Analytics /> // For tracking user interactions and performance
-        <SpeedInsights /> // For performance insights and optimizations
+        <Analytics /> 
+        <SpeedInsights />
         <Toaster />
       </body>
     </html>

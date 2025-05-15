@@ -3,11 +3,11 @@ import Link from 'next/link';
 
 const Footer = () => {
   return (
-    <footer className="bg-gray-100 py-8">
+    <footer className="bg-gray-100 dark:bg-black dark:text-white py-8">
       <div className="container mx-auto px-4">
         <div className="flex flex-col md:flex-row justify-between items-center">
           <div className="mb-4 md:mb-0">
-            <p className="font-bold text-lg">gouse.dev</p>
+            <p className="font-bold text-lg">mhdgouse.dev</p>
             <p className="text-sm text-gray-600">Fullstack Developer</p>
           </div>
           
@@ -41,7 +41,7 @@ const Footer = () => {
         
         <div className="border-t border-gray-200 mt-6 pt-6 text-center">
           <p className="text-sm text-gray-600">
-            &copy; {new Date().getFullYear()} gouse.dev. All rights reserved.
+            &copy; {new Date().getFullYear()} mhdgouse.dev. All rights reserved.
           </p>
         </div>
       </div>

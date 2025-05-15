@@ -17,6 +17,7 @@ import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Button } from '@/components/ui/button';
 import { Send } from 'lucide-react';
+import emailjs from '@emailjs/browser';
 
 const formSchema = z.object({
   name: z.string().min(2, {
@@ -25,74 +26,72 @@ const formSchema = z.object({
   email: z.string().email({
     message: "Please enter a valid email address.",
   }),
- 
   message: z.string().min(10, {
     message: "Message must be at least 10 characters.",
   }),
 });
 
+const SERVICE_ID = "service_n51vsed";
+const TEMPLATE_ID = "template_z6350tu";
+const USER_ID = "vJHcWqyEJdJ39uzOF";
+
 const Contact = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const { toast } = useToast();
-  
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       name: "",
       email: "",
-  
       message: "",
     },
   });
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
+  async function onSubmit(values: z.infer<typeof formSchema>) {
     setIsSubmitting(true);
-    
-    // Simulate form submission
-    setTimeout(() => {
-      console.log(values);
+
+    try {
+      const result = await emailjs.send(
+        SERVICE_ID,
+        TEMPLATE_ID,
+        {
+          from_name: values.name,
+          from_email: values.email,
+          message: values.message,
+        },
+        USER_ID
+      );
+
+      if (result.status === 200) {
+        toast({
+          title: "Message sent!",
+          description: "Thanks for reaching out. I'll get back to you soon.",
+        });
+        form.reset();
+      } else {
+        toast({
+          title: "Error",
+          description: "There was an error sending your message. Please try again.",
+          variant: "destructive",
+        });
+      }
+    } catch (error) {
       toast({
-        title: "Message sent!",
-        description: "Thanks for reaching out. I'll get back to you soon.",
+        title: "Error",
+        description: "There was an error sending your message. Please try again.",
+        variant: "destructive",
       });
-      form.reset();
+    } finally {
       setIsSubmitting(false);
-    }, 1500);
-    
-    // In a real application, you would send this data to your backend or a service like Formspree
-    // fetch('/api/contact', {
-    //   method: 'POST',
-    //   body: JSON.stringify(values),
-    //   headers: {
-    //     'Content-Type': 'application/json',
-    //   },
-    // })
-    //   .then((res) => res.json())
-    //   .then((data) => {
-    //     toast({
-    //       title: "Message sent!",
-    //       description: "Thanks for reaching out. I'll get back to you soon.",
-    //     });
-    //     form.reset();
-    //   })
-    //   .catch((error) => {
-    //     toast({
-    //       title: "Error",
-    //       description: "There was an error sending your message. Please try again.",
-    //       variant: "destructive",
-    //     });
-    //   })
-    //   .finally(() => {
-    //     setIsSubmitting(false);
-    //   });
+    }
   }
 
   return (
-    <section id="contact" className="py-20 px-4 sm:px-6 lg:px-8">
+    <section id="contact" className="py-20 px-4 sm:px-6 lg:px-8 bg-gray-50 dark:bg-slate-900 transition-colors">
       <div className="max-w-4xl mx-auto">
-        <h2 className="section-title">Contact Me</h2>
-        
-        <div className="bg-white p-8 rounded-lg shadow-md">
+        <h2 className="section-title text-black dark:text-white">Contact Me</h2>
+        <div className="bg-white dark:bg-slate-800 p-8 rounded-lg shadow-md">
           <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -101,56 +100,62 @@ const Contact = () => {
                   name="name"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Name</FormLabel>
+                      <FormLabel className="text-black dark:text-white">Name</FormLabel>
                       <FormControl>
-                        <Input placeholder="Your name" {...field} />
+                        <Input
+                          placeholder="Your name"
+                          className="bg-gray-100 dark:bg-slate-900 text-black dark:text-white border-gray-300 dark:border-slate-700"
+                          {...field}
+                        />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
                   )}
                 />
-                
                 <FormField
                   control={form.control}
                   name="email"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Email</FormLabel>
+                      <FormLabel className="text-black dark:text-white">Email</FormLabel>
                       <FormControl>
-                        <Input placeholder="Your email" type="email" {...field} />
+                        <Input
+                          placeholder="Your email"
+                          type="email"
+                          className="bg-gray-100 dark:bg-slate-900 text-black dark:text-white border-gray-300 dark:border-slate-700"
+                          {...field}
+                        />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
                   )}
                 />
               </div>
-              
               <FormField
                 control={form.control}
                 name="message"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Message</FormLabel>
+                    <FormLabel className="text-black dark:text-white">Message</FormLabel>
                     <FormControl>
-                      <Textarea 
-                        placeholder="Your message" 
-                        className="min-h-32" 
-                        {...field} 
+                      <Textarea
+                        placeholder="Your message"
+                        className="min-h-32 bg-gray-100 dark:bg-slate-900 text-black dark:text-white border-gray-300 dark:border-slate-700"
+                        {...field}
                       />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
                 )}
               />
-              
-              <Button 
-                type="submit" 
-                className="w-full md:w-auto bg-black hover:bg-gray-800"
+              <Button
+                type="submit"
+                className="w-full md:w-auto bg-black hover:bg-gray-800 dark:bg-white dark:text-black dark:hover:bg-gray-200"
                 disabled={isSubmitting}
               >
                 {isSubmitting ? (
                   <span className="flex items-center">
-                    <svg className="animate-spin -ml-1 mr-2 h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                    <svg className="animate-spin -ml-1 mr-2 h-4 w-4 text-white dark:text-black" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                       <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
                       <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                     </svg>
